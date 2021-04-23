@@ -1,0 +1,10 @@
+project(njin)
+
+file(GLOB_RECURSE APP_HEADERS *.h)
+file(GLOB_RECURSE APP_SOURCES *.cpp)
+
+add_executable(app "${APP_HEADERS}" "${APP_SOURCES}")
+
+target_include_directories(app PRIVATE ${CMAKE_SOURCE_DIR}/src)
+
+target_link_libraries(app PRIVATE njin_options CONAN_PKG::spdlog)

@@ -1,0 +1,5 @@
+Debug/
+build/
+nvimgdb.log
+compile_commands.json
+
