@@ -1,9 +1,10 @@
 #include "spdlog/spdlog.h"
 
+#include "config.h"
 #include "renderer.h"
 
 auto main() -> int {
-	spdlog::info("hello njin!");
+	spdlog::info(std::string(NJIN_NAME) + " v" + std::string(NJIN_VERSION));
 
 	njin::renderer renderer;
 	renderer.set_cursor(GLFW_CROSSHAIR_CURSOR);
