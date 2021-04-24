@@ -16,7 +16,10 @@ public:
 	auto is_running() -> bool;
 	auto handle_events() -> void;
 	auto swap() -> void;
-	auto clear(const glm::vec4 &color) -> void;
+	auto clear() -> void;
+	auto set_cursor(const int cursor_id) -> void;
+	auto set_clear_color(const glm::vec4 &cclear_olor) -> void;
+	auto set_polygon_mode(const GLenum polygon_mode) -> void;
 
 private:
 	using glfw_window_type = std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)>;
@@ -24,7 +27,6 @@ private:
 	auto set_window_hints(const int version_major, const int version_minor) -> void;
 	auto get_monitor_attribs() -> void;
 	auto create_window_and_make_current() -> void;
-	auto set_cursor(const int cursor_id) -> void;
 	auto load_glad() -> void;
 
 	std::string window_title_;
@@ -34,5 +36,7 @@ private:
 	int monitor_width_;
 	int monitor_height_;
 	int monitor_refresh_rate_;
+	glm::vec4 clear_color_;
+	GLenum polygon_mode_;
 };
 } // namespace njin

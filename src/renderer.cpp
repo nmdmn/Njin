@@ -10,7 +10,6 @@ renderer::renderer(std::string_view window_title, const int window_width, const 
 	set_window_hints(3, 3);
 	get_monitor_attribs();
 	create_window_and_make_current();
-	set_cursor(GLFW_CROSSHAIR_CURSOR);
 	load_glad();
 }
 
@@ -28,7 +27,22 @@ auto renderer::swap() -> void {
 	glfwSwapBuffers(glfw_window_.get());
 }
 
-auto renderer::clear(const glm::vec4 &color) -> void { }
+auto renderer::clear() -> void {
+	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+}
+
+auto renderer::set_cursor(const int cursor_id) -> void {
+	glfwSetCursor(glfw_window_.get(), glfwCreateStandardCursor(cursor_id));
+}
+auto renderer::set_clear_color(const glm::vec4 &clear_color) -> void {
+	clear_color_ = clear_color;
+	glClearColor(clear_color_.r, clear_color_.g, clear_color_.b, clear_color_.a);
+}
+
+auto renderer::set_polygon_mode(const GLenum polygon_mode) -> void {
+	polygon_mode_ = polygon_mode;
+	glPolygonMode(GL_FRONT_AND_BACK, polygon_mode_);
+}
 
 auto renderer::set_window_hints(const int version_major, const int version_minor) -> void {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, version_major);
@@ -58,10 +72,6 @@ auto renderer::create_window_and_make_current() -> void {
 		throw std::logic_error("glfwCreateWindow() failed!");
 	}
 	glfwMakeContextCurrent(glfw_window_.get());
-}
-
-auto renderer::set_cursor(const int cursor_id) -> void {
-	glfwSetCursor(glfw_window_.get(), glfwCreateStandardCursor(cursor_id));
 }
 
 auto renderer::load_glad() -> void {
