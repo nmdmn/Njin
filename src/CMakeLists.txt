@@ -7,4 +7,6 @@ add_executable(app "${APP_HEADERS}" "${APP_SOURCES}")
 
 target_include_directories(app PRIVATE ${CMAKE_SOURCE_DIR}/src)
 
-target_link_libraries(app PRIVATE njin_options CONAN_PKG::spdlog)
+target_link_libraries(
+  app PRIVATE njin_options CONAN_PKG::spdlog CONAN_PKG::glad CONAN_PKG::glfw
+              CONAN_PKG::glm)
