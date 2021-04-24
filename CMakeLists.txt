@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.15 FATAL_ERROR)
-project(njin CXX)
+project(
+  njin
+  VERSION 1.1.1
+  LANGUAGES CXX)
 
 include(cmake/njin-setup.cmake)
 setup_build_type()
