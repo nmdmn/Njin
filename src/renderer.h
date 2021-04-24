@@ -11,16 +11,19 @@
 namespace njin {
 class renderer {
 public:
-	renderer(std::string_view window_title = "njin v0.1.0",
+	renderer(std::string_view window_title = "njin",
 			 const int window_width = 800,
 			 const int window_height = 600);
 	auto is_running() -> bool;
 	auto handle_events() -> void;
 	auto swap() -> void;
 	auto clear() -> void;
+
 	auto set_cursor(const int cursor_id) -> void;
 	auto set_clear_color(const glm::vec4 &cclear_olor) -> void;
 	auto set_polygon_mode(const GLenum polygon_mode) -> void;
+
+	static auto on_window_size_changed(GLFWwindow *window, int width, int height) -> void;
 
 private:
 	using glfw_window_type = std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)>;
@@ -28,6 +31,7 @@ private:
 	auto set_window_hints(const int version_major, const int version_minor) -> void;
 	auto get_monitor_attribs() -> void;
 	auto create_window_and_make_current() -> void;
+	auto set_callbacks() -> void;
 	auto load_glad() -> void;
 
 	std::string window_title_;

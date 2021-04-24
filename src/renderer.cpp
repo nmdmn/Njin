@@ -12,6 +12,7 @@ renderer::renderer(std::string_view window_title, const int window_width, const 
 	set_window_hints(3, 3);
 	get_monitor_attribs();
 	create_window_and_make_current();
+	set_callbacks();
 	load_glad();
 }
 
@@ -53,6 +54,10 @@ auto renderer::set_window_hints(const int version_major, const int version_minor
 	glfwWindowHint(GLFW_SAMPLES, 8);
 }
 
+auto renderer::on_window_size_changed(GLFWwindow *window, int width, int height) -> void {
+	glViewport(0, 0, width, height);
+}
+
 auto renderer::get_monitor_attribs() -> void {
 	auto mode = glfwGetVideoMode(glfwGetPrimaryMonitor());
 	glfwWindowHint(GLFW_RED_BITS, mode->redBits);
@@ -73,6 +78,10 @@ auto renderer::create_window_and_make_current() -> void {
 		throw std::logic_error("glfwCreateWindow() failed!");
 	}
 	glfwMakeContextCurrent(glfw_window_.get());
+}
+
+auto renderer::set_callbacks() -> void {
+	glfwSetWindowSizeCallback(glfw_window_.get(), on_window_size_changed);
 }
 
 auto renderer::load_glad() -> void {
