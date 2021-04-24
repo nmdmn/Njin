@@ -37,6 +37,5 @@ private:
 	int monitor_height_;
 	int monitor_refresh_rate_;
 	glm::vec4 clear_color_;
-	GLenum polygon_mode_;
 };
 } // namespace njin
