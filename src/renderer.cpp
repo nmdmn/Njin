@@ -1,5 +1,7 @@
 #include "renderer.h"
 
+#include <stdexcept>
+
 namespace njin {
 renderer::renderer(std::string_view window_title, const int window_width, const int window_height)
 	: window_title_{window_title}
