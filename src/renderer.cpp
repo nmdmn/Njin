@@ -57,7 +57,7 @@ auto renderer::set_window_hints(const int version_major, const int version_minor
 }
 
 auto renderer::on_window_size_changed(GLFWwindow *window, int width, int height) -> void {
-	spdlog::info("window size changed: width={0}, height={1}", width, height);
+	spdlog::info("window size changed: width={0}px, height={1}px", width, height);
 	glViewport(0, 0, width, height);
 }
 
