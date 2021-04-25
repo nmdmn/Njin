@@ -22,7 +22,7 @@ public:
 
 	auto set_cursor(const int cursor_id) -> void;
 	auto set_clear_color(const glm::vec4 &cclear_olor) -> void;
-	auto set_polygon_mode(const GLenum polygon_mode) -> void;
+	auto set_polygon_mode(const GLenum face, const GLenum mode) -> void;
 
 	static auto on_window_size_changed(GLFWwindow *window, int width, int height) -> void;
 

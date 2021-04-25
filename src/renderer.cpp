@@ -44,8 +44,8 @@ auto renderer::set_clear_color(const glm::vec4 &clear_color) -> void {
 	glClearColor(clear_color_.r, clear_color_.g, clear_color_.b, clear_color_.a);
 }
 
-auto renderer::set_polygon_mode(const GLenum polygon_mode) -> void {
-	glPolygonMode(GL_FRONT_AND_BACK, polygon_mode);
+auto renderer::set_polygon_mode(const GLenum face, const GLenum mode) -> void {
+	glPolygonMode(face, mode);
 }
 
 auto renderer::set_window_hints(const int version_major, const int version_minor) -> void {
