@@ -74,8 +74,11 @@ auto renderer::get_monitor_attribs() -> void {
 }
 
 auto renderer::create_window_and_make_current() -> void {
-	glfw_window_.reset(
-		glfwCreateWindow(window_width_, window_height_, window_title_.c_str(), nullptr, nullptr));
+	glfw_window_.reset(glfwCreateWindow(window_width_,
+										window_height_,
+										(window_title_ + " v" + NJIN_VERSION).c_str(),
+										nullptr,
+										nullptr));
 	if(!glfw_window_) {
 		glfwTerminate();
 		throw std::logic_error("glfwCreateWindow() failed!");

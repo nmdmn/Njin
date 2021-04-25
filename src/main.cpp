@@ -1,6 +1,5 @@
 #include <spdlog/spdlog.h>
 
-#include "config.h"
 #include "renderer.h"
 
 auto main() -> int {
