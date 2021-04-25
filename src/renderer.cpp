@@ -2,6 +2,8 @@
 
 #include <stdexcept>
 
+#include <spdlog/spdlog.h>
+
 namespace njin {
 renderer::renderer(std::string_view window_title, const int window_width, const int window_height)
 	: window_title_{window_title}
@@ -55,6 +57,7 @@ auto renderer::set_window_hints(const int version_major, const int version_minor
 }
 
 auto renderer::on_window_size_changed(GLFWwindow *window, int width, int height) -> void {
+	spdlog::info("window size changed: width={0}, height={1}", width, height);
 	glViewport(0, 0, width, height);
 }
 
