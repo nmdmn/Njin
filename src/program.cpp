@@ -41,6 +41,14 @@ program::program(const std::initializer_list<const std::filesystem::path> &verte
 	});
 }
 
+auto program::on() const -> void {
+	glUseProgram(id_);
+}
+
+auto program::off() const -> void {
+	glUseProgram(0);
+}
+
 auto program::load_shader_file(const std::filesystem::path &shader_file_path) const -> std::string {
 	std::ifstream shader_file{shader_file_path};
 	if(!shader_file.is_open())
@@ -83,7 +91,7 @@ auto program::get_shader_type(const std::filesystem::path &shader_file_path) con
 		throw std::invalid_argument("unkonw shader file extension: " + extension);
 }
 
-auto program::log() const -> void {
+auto program::to_string() const -> std::string {
 	// TODO ugly as fukk
 	GLint size;
 	GLenum type;
@@ -93,31 +101,26 @@ auto program::log() const -> void {
 
 	GLint count;
 	glGetProgramiv(id_, GL_ACTIVE_ATTRIBUTES, &count);
-	spdlog::info("attributes: " + std::to_string(count));
+	std::stringstream msg_stream;
+	msg_stream << "program info: " << std::endl
+			   << "attributes: " << std::to_string(count) << std::endl;
 	for(GLint index = 0; index < count; index++) {
 		glGetActiveAttrib(id_, static_cast<GLuint>(index), bufSize, &length, &size, &type, name);
 
-		spdlog::info("\t id: " + std::to_string(index) + ", type: " + std::to_string(type) +
-					 ", name: \"" + name + "\"");
+		msg_stream << "\t id: " << std::to_string(index) << ", type: " << std::to_string(type)
+				   << ", name: \"" << name << "\"" << std::endl;
 	}
 
 	glGetProgramiv(id_, GL_ACTIVE_UNIFORMS, &count);
-	spdlog::info("uniforms: " + std::to_string(count));
+	msg_stream << "uniforms: " << std::to_string(count) << std::endl;
 
 	for(GLint index = 0; index < count; index++) {
 		glGetActiveUniform(id_, static_cast<GLuint>(index), bufSize, &length, &size, &type, name);
 
-		spdlog::info("\t id: " + std::to_string(index) + ", type: " + std::to_string(type) +
-					 ", name: \"" + name + "\"");
+		msg_stream << "\t id: " << std::to_string(index) << ", type: " << std::to_string(type)
+				   << ", name: \"" << name << "\"" << std::endl;
 	}
-}
 
-auto program::on() const -> void {
-	glUseProgram(id_);
+	return msg_stream.str();
 }
-
-auto program::off() const -> void {
-	glUseProgram(0);
-}
-
 } // namespace njin

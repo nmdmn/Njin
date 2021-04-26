@@ -18,7 +18,7 @@ auto main() -> int {
 	std::string shader_path_prefix{shader_folder};
 	njin::program default_program{shader_path_prefix + "default.vs",
 								  shader_path_prefix + "default.fs"};
-	default_program.log();
+	spdlog::info(default_program);
 
 	while(renderer.is_running()) {
 		renderer.handle_events();
