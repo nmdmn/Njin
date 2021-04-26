@@ -10,7 +10,7 @@ renderer::renderer(std::string_view window_title, const int window_width, const 
 	, window_width_{window_width}
 	, window_height_{window_height}
 	, glfw_window_{nullptr, glfwDestroyWindow} {
-	if(!glfwInit()) { throw std::logic_error("glfwIni() failed!"); }
+	if(!glfwInit()) { throw std::runtime_error("glfwIni() failed!"); }
 	set_window_hints(3, 3);
 	get_monitor_attribs();
 	create_window_and_make_current();
@@ -81,7 +81,7 @@ auto renderer::create_window_and_make_current() -> void {
 										nullptr));
 	if(!glfw_window_) {
 		glfwTerminate();
-		throw std::logic_error("glfwCreateWindow() failed!");
+		throw std::runtime_error("glfwCreateWindow() failed!");
 	}
 	glfwMakeContextCurrent(glfw_window_.get());
 }
@@ -92,6 +92,6 @@ auto renderer::set_callbacks() -> void {
 
 auto renderer::load_glad() -> void {
 	if(!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
-		throw std::logic_error("gladLoadGLLoader() failed");
+		throw std::runtime_error("gladLoadGLLoader() failed");
 }
 } // namespace njin

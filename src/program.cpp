@@ -10,7 +10,7 @@
 namespace njin {
 program::program(const std::initializer_list<const std::filesystem::path> &vertex_file_paths)
 	: id_{glCreateProgram()} {
-	if(!id_) throw std::runtime_error("glCreateProgram failed");
+	if(!id_) throw std::runtime_error("glCreateProgram() failed");
 
 	std::vector<GLuint> shader_ids;
 	std::ranges::for_each(vertex_file_paths, [&](const auto &vertex_file_path) {
@@ -54,7 +54,7 @@ auto program::load_shader_file(const std::filesystem::path &shader_file_path) co
 auto program::compile_shader(const std::string &shader_source, const GLenum &shader_type) const
 	-> GLuint {
 	GLuint shader_id = glCreateShader(shader_type);
-	if(!shader_id) throw std::runtime_error("glCreateShader failed");
+	if(!shader_id) throw std::runtime_error("glCreateShader() failed");
 
 	const GLchar *rawSource = shader_source.c_str();
 	glShaderSource(shader_id, 1, &rawSource, NULL);
@@ -75,7 +75,6 @@ auto program::compile_shader(const std::string &shader_source, const GLenum &sha
 
 auto program::get_shader_type(const std::filesystem::path &shader_file_path) const -> GLenum {
 	auto extension = shader_file_path.extension().string();
-	//TODO switch?!
 	if(extension == ".vs" || extension == ".vert")
 		return GL_VERTEX_SHADER;
 	else if(extension == ".fs" || extension == ".frag")
