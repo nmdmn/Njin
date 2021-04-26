@@ -1,6 +1,6 @@
 #include "renderer.h"
 
-#include <stdexcept>
+#include <exception>
 
 #include <spdlog/spdlog.h>
 
