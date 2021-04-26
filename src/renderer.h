@@ -26,6 +26,11 @@ public:
 
 	static auto on_window_size_changed(GLFWwindow *window, int width, int height) -> void;
 
+	template <typename T>
+	friend auto operator<<(T &stream, const renderer &renderer) -> T & {
+		return stream << renderer.to_string();
+	}
+
 private:
 	using glfw_window_type = std::unique_ptr<GLFWwindow, decltype(&glfwDestroyWindow)>;
 
@@ -34,6 +39,7 @@ private:
 	auto create_window_and_make_current() -> void;
 	auto set_callbacks() -> void;
 	auto load_glad() -> void;
+	auto to_string() const -> std::string;
 
 	std::string window_title_;
 	int window_width_;

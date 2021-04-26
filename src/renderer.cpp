@@ -1,5 +1,6 @@
 #include "renderer.h"
 
+#include <sstream>
 #include <exception>
 
 #include <spdlog/spdlog.h>
@@ -93,5 +94,13 @@ auto renderer::set_callbacks() -> void {
 auto renderer::load_glad() -> void {
 	if(!gladLoadGLLoader(reinterpret_cast<GLADloadproc>(glfwGetProcAddress)))
 		throw std::runtime_error("gladLoadGLLoader() failed");
+}
+
+auto renderer::to_string() const -> std::string {
+	std::stringstream msg_stream;
+	msg_stream << "window: width=" << window_width_ << ", height=" << window_height_ << "; "
+			   << "monitor: width=" << monitor_width_ << ", height=" << monitor_height_
+			   << ", refresh rate=" << monitor_refresh_rate_;
+	return msg_stream.str();
 }
 } // namespace njin

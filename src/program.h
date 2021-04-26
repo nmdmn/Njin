@@ -12,6 +12,7 @@ public:
 	program(const std::initializer_list<const std::filesystem::path> &shader_file_paths);
 	auto on() const -> void;
 	auto off() const -> void;
+
 	template <typename T>
 	friend auto operator<<(T &stream, const program &program) -> T & {
 		return stream << program.to_string();

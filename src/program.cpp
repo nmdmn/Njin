@@ -101,13 +101,13 @@ auto program::to_string() const -> std::string {
 	GLint count;
 	glGetProgramiv(id_, GL_ACTIVE_ATTRIBUTES, &count);
 	std::stringstream msg_stream;
-	msg_stream << "program info: " << std::endl
+	msg_stream << "program info:" << std::endl
 			   << "attributes: " << std::to_string(count) << std::endl;
 	for(GLint index = 0; index < count; index++) {
 		glGetActiveAttrib(id_, static_cast<GLuint>(index), bufSize, &length, &size, &type, name);
 
-		msg_stream << "\t id: " << std::to_string(index) << ", type: " << std::to_string(type)
-				   << ", name: \"" << name << "\"" << std::endl;
+		msg_stream << "\t id=" << std::to_string(index) << ", type=" << std::to_string(type)
+				   << ", name=\"" << name << "\"" << std::endl;
 	}
 
 	glGetProgramiv(id_, GL_ACTIVE_UNIFORMS, &count);
@@ -116,8 +116,8 @@ auto program::to_string() const -> std::string {
 	for(GLint index = 0; index < count; index++) {
 		glGetActiveUniform(id_, static_cast<GLuint>(index), bufSize, &length, &size, &type, name);
 
-		msg_stream << "\t id: " << std::to_string(index) << ", type: " << std::to_string(type)
-				   << ", name: \"" << name << "\"" << std::endl;
+		msg_stream << "\t id=" << std::to_string(index) << ", type=" << std::to_string(type)
+				   << ", name=\"" << name << "\"" << std::endl;
 	}
 
 	return msg_stream.str();
