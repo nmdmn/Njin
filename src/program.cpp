@@ -92,7 +92,6 @@ auto program::get_shader_type(const std::filesystem::path &shader_file_path) con
 }
 
 auto program::to_string() const -> std::string {
-	// TODO ugly as fukk
 	GLint size;
 	GLenum type;
 	const GLsizei bufSize = 16;
