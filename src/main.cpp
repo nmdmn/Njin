@@ -5,7 +5,7 @@
 #include "renderer.h"
 #include "program.h"
 
-constexpr const char *shader_folder = NJIN_SHADER_FOLDER;
+constexpr std::string_view shader_path_prefix = NJIN_SHADER_FOLDER;
 
 auto main() -> int {
 	spdlog::info(std::string(NJIN_NAME) + " v" + std::string(NJIN_VERSION));
@@ -16,9 +16,8 @@ auto main() -> int {
 	renderer.set_polygon_mode(GL_FRONT_AND_BACK, GL_FILL);
 	spdlog::info(renderer);
 
-	std::string shader_path_prefix{shader_folder};
-	njin::program default_program{shader_path_prefix + "default.vs",
-								  shader_path_prefix + "default.fs"};
+	njin::program default_program{shader_path_prefix.data() + std::string("default.vs"),
+								  shader_path_prefix.data() + std::string("default.fs")};
 	spdlog::info(default_program);
 
 	while(renderer.is_running()) {
